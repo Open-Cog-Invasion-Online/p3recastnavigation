@@ -63,7 +63,8 @@ INLINE int RNNavMeshManager::get_num_crowd_agents() const
  */
 INLINE RNNavMeshManager* RNNavMeshManager::get_global_ptr()
 {
-	return Singleton<RNNavMeshManager>::GetSingletonPtr();
+	static PT(RNNavMeshManager) global_ptr = new RNNavMeshManager;
+    return global_ptr;
 }
 
 /**

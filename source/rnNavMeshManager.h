@@ -22,8 +22,7 @@ class RNCrowdAgent;
  *
  * RNNavMeshManager is a singleton class.
  */
-class EXPORT_CLASS RNNavMeshManager: public TypedReferenceCount,
-		public Singleton<RNNavMeshManager>
+class EXPORT_CLASS RNNavMeshManager: public TypedReferenceCount
 {
 PUBLISHED:
 	RNNavMeshManager(const NodePath& root = NodePath(),

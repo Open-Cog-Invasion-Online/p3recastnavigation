@@ -86,7 +86,7 @@ int RNCrowdAgent::set_move_velocity(const LVector3f& vel)
 void RNCrowdAgent::set_mov_type(RNCrowdAgentMovType movType)
 {
 	//if there isn't a traverser only RECAST is allowed
-	RNNavMeshManager::GetSingletonPtr()->get_collision_traverser() ?
+	RNNavMeshManager::get_global_ptr()->get_collision_traverser() ?
 			mMovType = movType : mMovType = RECAST;
 }
 
