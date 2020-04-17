@@ -157,7 +157,7 @@ if (WIN32)
   endforeach()
 
   # Link panda libraries
-  set(PANDA_LIBRARIES "libp3framework;libpanda;libpandaexpress;libp3dtool;libp3dtoolconfig;libp3direct;${INTERROGATE_LIB}")
+  set(PANDA_LIBRARIES "libp3framework;libpanda;libpandaexpress;libp3dtool;libp3dtoolconfig;libp3direct;libp3interrogatedb;${INTERROGATE_LIB}")
   if(HAVE_LIB_BULLET)
     set(PANDA_LIBRARIES "libpandabullet;${PANDA_LIBRARIES}")
   endif()

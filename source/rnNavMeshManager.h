@@ -29,6 +29,9 @@ PUBLISHED:
 			const CollideMask& mask = GeomNode::get_default_collide_mask());
 	virtual ~RNNavMeshManager();
 
+	INLINE void set_root_node_path( const NodePath &root );
+	INLINE void set_collide_mask( const CollideMask &mask );
+
 	/**
 	 * \name REFERENCE NODES
 	 */

@@ -67,6 +67,16 @@ INLINE RNNavMeshManager* RNNavMeshManager::get_global_ptr()
     return global_ptr;
 }
 
+INLINE void RNNavMeshManager::set_root_node_path( const NodePath &root )
+{
+	mRoot = root;
+}
+
+INLINE void RNNavMeshManager::set_collide_mask( const CollideMask &mask )
+{
+	mMask = mask;
+}
+
 /**
  * Get the collide mask.
  */
