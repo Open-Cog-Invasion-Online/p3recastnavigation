@@ -19,6 +19,8 @@
 #include "genericAsyncTask.h"
 #include "lpoint3.h"
 
+using namespace std;
+
 //
 #ifndef CPPPARSER
 #include "support/NavMeshType.h"

@@ -304,7 +304,7 @@ void RNCrowdAgent::do_finalize()
 	//mNavMesh will be cleared during removing, so
 	//remove through a temporary pointer
 	WPT(RNNavMesh)navMesh = mNavMesh;
-	if(navMesh)
+	if(navMesh.is_valid_pointer())
 	{
 		navMesh->remove_crowd_agent(mThisNP);
 	}

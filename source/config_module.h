@@ -9,6 +9,7 @@
 #include "configVariableString.h"
 #include "configVariableInt.h"
 
+using namespace std;
 
 NotifyCategoryDecl(recastnavigation, EXPORT_CLASS, EXPORT_TEMPL);
 
