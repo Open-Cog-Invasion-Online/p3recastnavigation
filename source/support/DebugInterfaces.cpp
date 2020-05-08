@@ -479,12 +479,9 @@ void DebugDrawPanda3d::end()
 	m_geomPrim->close_primitive();
 	m_geom = new Geom(m_vertexData);
 	m_geom->add_primitive(m_geomPrim);
-	m_geomNodeNP =
-			NodePath(
-					new GeomNode(
-							"DebugDrawPanda3d_GeomNode_"
-									+ dynamic_cast<std::ostringstream&>(std::ostringstream().operator <<(
-											m_geomNodeNPCollection.size())).str()));
+	std::ostringstream ss;
+	ss << "DebugDrawPanda3d_GeomNode_" << m_geomNodeNPCollection.size();
+	m_geomNodeNP = NodePath(new GeomNode(ss.str()));
 	DCAST(GeomNode, m_geomNodeNP.node())->add_geom(m_geom);
 	m_geomNodeNP.reparent_to(m_render);
 	m_geomNodeNP.set_depth_write(m_depthMask);
