@@ -79,7 +79,7 @@ def run_cmake(config, args):
 
     if is_windows():
         # Specify 64-bit compiler when using a 64 bit panda sdk build
-        bit_suffix = " Win64" if is_64_bit() else ""
+        bit_suffix = "" if is_64_bit() else ""
         cmake_args += ["-G" + get_panda_mscv_version().cmake_str + bit_suffix]
 
     # Specify python version, once as integer, once seperated by a dot
@@ -117,7 +117,7 @@ def run_cmake(config, args):
         cmake_args += ["-DHAVE_LIB_FREETYPE=TRUE"]
 
     # Optimization level
-    optimize = 3
+    optimize = 1
 
     if args.optimize is None:
         # No optimization level set. Try to find it in the config
@@ -133,6 +133,7 @@ def run_cmake(config, args):
         cmake_args += ["-DIGATE_VERBOSE=0"]
 
     cmake_args += ["-DOPTIMIZE=" + str(optimize)]
+    print(list(cmake_args))
 
     output = try_execute("cmake", join_abs(get_script_dir(), ".."), *cmake_args, error_formatter=handle_cmake_error)
 

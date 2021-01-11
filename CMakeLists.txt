@@ -1,5 +1,5 @@
 
-set(PROJECT_NAME CACHE STRING "Module")
+set(PROJECT_NAME "p3recastnavigation")
 
 cmake_minimum_required (VERSION 2.6)
 project (${PROJECT_NAME})
@@ -31,30 +31,17 @@ set(TOUCHINPUT_ENABLED CACHE BOOL 0)
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
 set(CMAKE_CXX_FLAGS_RELEASE "")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "")
-
-
-if (CMAKE_CL_64 STREQUAL "1")
-  message(STATUS "Bitness: 64 bit ('${CMAKE_CL_64}')")
-  set(IS_64_BIT TRUE)
-  set(IS_32_BIT FALSE)
-else()
-  message(STATUS "Bitness: 32 bit ('${CMAKE_CL_64}')")
-  set(IS_64_BIT TRUE)
-  set(IS_32_BIT FALSE)
-endif()
+set (IS_64_BIT TRUE)
 
 set(LIBRARIES "")
+set(MSVC_VERSION_SHORT "vc14")
 
 # Windows - 32 and 64 bit
 if (WIN32)
 
-  set(PYTHONVER CACHE STRING "27")
+  set(PYTHONVER "39")
+  set(WIN_PANDA_PATH $ENV{OPENCIOENGINE})
 
-  # Find panda path
-  execute_process(
-    COMMAND "${PYTHON_EXECUTABLE}" "-B" "scripts/common.py" "--print-sdk-path"
-    OUTPUT_VARIABLE WIN_PANDA_PATH
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
   message(STATUS "Detected panda3d installation: ${WIN_PANDA_PATH}")
 
 
@@ -67,16 +54,6 @@ if (WIN32)
 
 
   # Find visual studio version
-  if (MSVC10)
-    set(MSVC_VERSION_SHORT "vc10")
-  elseif (MSVC12)
-    set(MSVC_VERSION_SHORT "vc12")
-  elseif(MSVC14)
-    set(MSVC_VERSION_SHORT "vc14")
-  else()
-    message(WARMING "Unable to determine visual studio version, assuming Visual Studio 2010")
-    set(MSVC_VERSION_SHORT "vc10")
-  endif()
   message(STATUS "Detected visual studio version: ${MSVC_VERSION_SHORT}")
 
 
@@ -103,6 +80,7 @@ if (WIN32)
 
   set(PYTHON_LIBRARIES "${WIN_PANDA_PATH}/python/libs/python${PYTHONVER}.lib")
   set(PYTHON_INCLUDE_DIRS "${WIN_PANDA_PATH}/python/include")
+  message(STATUS "Using: ${WIN_PANDA_PATH}/python/libs/python${PYTHONVER}.lib")
 
   # [LIB] Bullet
   if(HAVE_LIB_BULLET)
@@ -164,7 +142,7 @@ if (WIN32)
   link_directories("${PANDA_LIBRARY_DIRS}")
 
 else()
-  set(PYTHONVERDOT CACHE STRING "2.7")
+  set(PYTHONVERDOT "3.9")
   set(Python_ADDITIONAL_VERSIONS ${PYTHONVERDOT})
   find_package(PythonLibs REQUIRED)
 
@@ -196,7 +174,7 @@ else()
   endif()
 
   # Locate the Panda3D headers
-  find_path(PANDA_INCLUDE_DIR dtoolbase.h PATH_SUFFIXES panda3d)
+  #find_path(PANDA_INCLUDE_DIR dtoolbase.h PATH_SUFFIXES panda3d)
 
   # Locate the Panda3D libraries
   set(REQ_LIBRARIES p3framework panda pandaexpress p3dtool p3dtoolconfig p3direct ${INTERROGATE_LIB})
@@ -226,7 +204,7 @@ else()
       message(FATAL_ERROR "Could not find system wide panda3d headers, and no local installation was found!")
     endif()
 
-    set(PANDA_INCLUDE_DIR "${LOCAL_PANDA_PATH}/include")
+    #set(PANDA_INCLUDE_DIR "${LOCAL_PANDA_PATH}/include")
 
     set(PANDA_LIBRARIES "")
     foreach(lib ${REQ_LIBRARIES})
@@ -246,6 +224,8 @@ execute_process(
 
 
 # Link panda includes / libraries
+message (STATUS "Python include dirs: ${PYTHON_INCLUDE_DIRS}")
+message (STATUS "Panda include dirs: ${PANDA_INCLUDE_DIR}")
 include_directories("${PANDA_INCLUDE_DIR}")
 include_directories("${PYTHON_INCLUDE_DIRS}")
 

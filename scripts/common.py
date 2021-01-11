@@ -33,7 +33,8 @@ MSVC_VERSIONS = [
     MSVCVersion(1600, "Visual Studio 10 2010", "vc100"),
     MSVCVersion(1700, "Visual Studio 11 2012", "vc110"),
     MSVCVersion(1800, "Visual Studio 12 2013", "vc120"),
-    MSVCVersion(1900, "Visual Studio 14 2015", "vc140")
+    MSVCVersion(1900, "Visual Studio 14 2015", "vc140"),
+    MSVCVersion(1928, "Visual Studio 16 2019", "vc140")
 ]
 
 def get_output_name():
@@ -247,6 +248,7 @@ def write_ini_conf(config, fname):
 def get_panda_mscv_version():
     """ Returns the MSVC version panda was built with """
     compiler = PandaSystem.get_compiler()
+    print("My compiler: {0}".format(compiler))
     for msvc_version in MSVC_VERSIONS:
         if msvc_version.compiler_search_string in compiler:
             return msvc_version
